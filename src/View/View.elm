@@ -2,18 +2,9 @@ module View.View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (onClick)
 import Model.Model exposing (Model)
-import Msg.Message exposing (Msg)
-
-
-baseUrl : String
-baseUrl =
-    "https://programming-elm.com/"
-
-
-url : String -> String
-url path =
-    baseUrl ++ path
+import Msg.Message exposing (Msg(..))
 
 
 view : Model -> Html Msg
@@ -24,17 +15,36 @@ view model =
             ]
         , div
             [ class "content-flow" ]
-            [ (detailedPhoto << url) "1.jpg" "Surfing"
-            , (detailedPhoto << url) "2.jpg" "The Fox"
-            , (detailedPhoto << url) "3.jpg" "Evening"
+            [ detailedPhoto model
             ]
         ]
 
 
-detailedPhoto : String -> String -> Html Msg
-detailedPhoto fullUrl caption =
+detailedPhoto : Model -> Html Msg
+detailedPhoto model =
+    let
+        buttonClass =
+            if model.liked then
+                "on"
+
+            else
+                "off"
+
+        msg =
+            if model.liked then
+                UnLike
+
+            else
+                Like
+    in
     div [ class "detailed-photo" ]
-        [ img [ src fullUrl ] []
+        [ img [ src model.url ] []
         , div [ class "photo-info" ]
-            [ h2 [ class "caption" ] [ text caption ] ]
+            [ div [ class "like-button", onClick msg ]
+                [ span [ class buttonClass ]
+                    [ i [ class "fas fa-heart fa-2x" ] []
+                    ]
+                ]
+            , h2 [ class "caption" ] [ text model.caption ]
+            ]
         ]

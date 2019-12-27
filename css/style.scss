@@ -134,15 +134,20 @@ ul {
     padding-left: 15px;
     padding-right: 15px;
     padding-top: 15px;
-  }
 
-  .like-button {
-    cursor: pointer;
-    margin-bottom: 10px;
+    .like-button {
+      cursor: pointer;
+      margin-bottom: 10px;
 
-    i.fa-heart {
-      color: #d00;
+      .on {
+        color: #d00;
+      }
+
+      .off {
+        color: #707070;
+      }
     }
+
   }
 
   .caption {
