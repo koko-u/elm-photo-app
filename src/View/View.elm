@@ -6,16 +6,6 @@ import Model.Model exposing (Model)
 import Msg.Message exposing (Msg)
 
 
-baseUrl : String
-baseUrl =
-    "https://programming-elm.com/"
-
-
-url : String -> String
-url path =
-    baseUrl ++ path
-
-
 view : Model -> Html Msg
 view model =
     div []
@@ -24,17 +14,15 @@ view model =
             ]
         , div
             [ class "content-flow" ]
-            [ (detailedPhoto << url) "1.jpg" "Surfing"
-            , (detailedPhoto << url) "2.jpg" "The Fox"
-            , (detailedPhoto << url) "3.jpg" "Evening"
+            [ detailedPhoto model
             ]
         ]
 
 
-detailedPhoto : String -> String -> Html Msg
-detailedPhoto fullUrl caption =
+detailedPhoto : Model -> Html Msg
+detailedPhoto model =
     div [ class "detailed-photo" ]
-        [ img [ src fullUrl ] []
+        [ img [ src model.url ] []
         , div [ class "photo-info" ]
-            [ h2 [ class "caption" ] [ text caption ] ]
+            [ h2 [ class "caption" ] [ text model.caption ] ]
         ]
