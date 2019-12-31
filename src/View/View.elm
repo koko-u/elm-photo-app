@@ -22,6 +22,17 @@ view model =
 
 detailedPhoto : Model -> Html Msg
 detailedPhoto model =
+    div [ class "detailed-photo" ]
+        [ img [ src model.url ] []
+        , div [ class "photo-info" ]
+            [ loveButton model
+            , h2 [ class "caption" ] [ text model.caption ]
+            ]
+        ]
+
+
+loveButton : Model -> Html Msg
+loveButton model =
     let
         buttonClass =
             if model.liked then
@@ -29,22 +40,9 @@ detailedPhoto model =
 
             else
                 "off"
-
-        msg =
-            if model.liked then
-                UnLike
-
-            else
-                Like
     in
-    div [ class "detailed-photo" ]
-        [ img [ src model.url ] []
-        , div [ class "photo-info" ]
-            [ div [ class "like-button", onClick msg ]
-                [ span [ class buttonClass ]
-                    [ i [ class "fas fa-heart fa-2x" ] []
-                    ]
-                ]
-            , h2 [ class "caption" ] [ text model.caption ]
+    div [ class "like-button", onClick ToggleLike ]
+        [ span [ class buttonClass ]
+            [ i [ class "fas fa-heart fa-2x" ] []
             ]
         ]
