@@ -2,7 +2,7 @@ module View.View exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput, onSubmit)
 import Model.Model exposing (Model)
 import Msg.Message exposing (Msg(..))
 
@@ -74,12 +74,18 @@ viewComments : Model -> Html Msg
 viewComments model =
     div []
         [ viewCommentList model.comments
-        , Html.form [ class "new-comment" ]
+        , Html.form
+            [ class "new-comment"
+            , onSubmit SaveComment
+            ]
             [ input
                 [ type_ "text"
                 , placeholder "Add a comment..."
+                , value model.newComment
+                , onInput UpdateComment
                 ]
                 []
-            , button [] [ text "Save" ]
+            , button [ disabled <| String.isEmpty model.newComment ]
+                [ text "Save" ]
             ]
         ]
