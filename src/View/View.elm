@@ -29,18 +29,11 @@ detailedPhoto model =
 
             else
                 "off"
-
-        msg =
-            if model.liked then
-                UnLike
-
-            else
-                Like
     in
     div [ class "detailed-photo" ]
         [ img [ src model.url ] []
         , div [ class "photo-info" ]
-            [ div [ class "like-button", onClick msg ]
+            [ div [ class "like-button", onClick ToggleLike ]
                 [ span [ class buttonClass ]
                     [ i [ class "fas fa-heart fa-2x" ] []
                     ]

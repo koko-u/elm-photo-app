@@ -4,15 +4,11 @@ import Model.Model exposing (Model)
 
 
 type Msg
-    = Like
-    | UnLike
+    = ToggleLike
 
 
 update : Msg -> Model -> Model
 update msg model =
     case msg of
-        Like ->
-            { model | liked = True }
-
-        UnLike ->
-            { model | liked = False }
+        ToggleLike ->
+            { model | liked = not model.liked }
